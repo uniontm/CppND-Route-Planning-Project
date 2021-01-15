@@ -1,4 +1,4 @@
-#include <optional>
+#include <optional> //YY: 
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -10,26 +10,26 @@
 
 using namespace std::experimental;
 
-static std::optional<std::vector<std::byte>> ReadFile(const std::string &path)
+static std::optional<std::vector<std::byte>> ReadFile(const std::string &path) //YY: https://blog.csdn.net/ypshowm/article/details/89030194
 {   
-    std::ifstream is{path, std::ios::binary | std::ios::ate};
+    std::ifstream is{path, std::ios::binary | std::ios::ate}; //YY: two options, binary, not converting to any other data type. ate: at the end, see the 
     if( !is )
         return std::nullopt;
     
-    auto size = is.tellg();
-    std::vector<std::byte> contents(size);    
+    auto size = is.tellg(); //YY: returns the position fo the current character in the input stream. http://www.cplusplus.com/reference/istream/istream/tellg/
+    std::vector<std::byte> contents(size);    //YY: creat a 1D vector called contents with initialized size
     
-    is.seekg(0);
-    is.read((char*)contents.data(), size);
+    is.seekg(0); //YY: seek back to the beginning of the ifstream
+    is.read((char*)contents.data(), size); //YY: read the stream into the contents
 
-    if( contents.empty() )
+    if( contents.empty() )    //YY: returns whether the vector is empty. http://www.cplusplus.com/reference/vector/vector/empty/
         return std::nullopt;
-    return std::move(contents);
+    return std::move(contents); //YY: std::move: transfer the vector variable into the other variables ???? with pointers and references
 }
 
 int main(int argc, const char **argv)
 {    
-    std::string osm_data_file = "";
+    std::string osm_data_file = ""; //YY: 
     if( argc > 1 ) {
         for( int i = 1; i < argc; ++i )
             if( std::string_view{argv[i]} == "-f" && ++i < argc )
