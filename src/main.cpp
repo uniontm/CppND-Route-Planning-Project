@@ -63,6 +63,9 @@ int main(int argc, const char **argv) //YY:  parse command line argument  parse 
     // user input for these values using std::cin. Pass the user input to the
     // RoutePlanner object below in place of 10, 10, 90, 90.
 
+    //YY: Here in main is your first to do,which is to accept user input for the start_x,start_y, end_x, and end_y coordinates.
+    //YY: You'll use this user input to replace these coordinates here.
+    
     // Build Model.
     //YY: we create a route model object using the osm data. This route model object is called model.
     RouteModel model{osm_data};
@@ -71,14 +74,15 @@ int main(int argc, const char **argv) //YY:  parse command line argument  parse 
     //YY: Then we create a route_planner object using that model and the coordinates 10, 10, 90, 90.
     //YY: 10, 10 are the x and y coordinates of the starting and 90,90 are the x and y coordinates at the ending point.
     RoutePlanner route_planner{model, 10, 10, 90, 90};
-    route_planner.AStarSearch(); AStarSearch, which performs the AStarSearch on the route planner and records the results in the route planner object.
+    route_planner.AStarSearch(); 
+    //YY: AStarSearch, which performs the AStarSearch on the route planner and records the results in the route planner object.
     //YY: After we've created this routeplanner object, main calls routeplanner.  
     //YY: AStarSearch, which performs the AStarSearch on the route planner and records the results in the route planner object.
 
     std::cout << "Distance: " << route_planner.GetDistance() << " meters. \n";
 
     // Render results of search.
-    Render render{model};
+    Render render{model}; //YY: there's a random object created using the model.
 
     auto display = io2d::output_surface{400, 400, io2d::format::argb32, io2d::scaling::none, io2d::refresh_style::fixed, 30};
     display.size_change_callback([](io2d::output_surface& surface){
@@ -88,4 +92,4 @@ int main(int argc, const char **argv) //YY:  parse command line argument  parse 
         render.Display(surface);
     });
     display.begin_show();
-}
+}  //YY:some IO2D code to display the results.
